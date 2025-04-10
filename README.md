@@ -1,4 +1,4 @@
-# baloo-clear-from-non-existing
+# baloo-clear-of-non-existing
 
 A Shell-script-workaround for baloo file indexer to clean its database of non-existing files.
 
