@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 balooctl6 disable
 declare -a file_types=(
@@ -8,7 +8,7 @@ declare -a file_types=(
   "Images"
 )
 for file_type in "${file_types[@]}"; do
-  baloosearch6 "type:$file_type" | head -n -1 | while read filename; do
+  baloosearch6 "type:$file_type" | head -n -1 | while read -r filename; do
     if [ ! -f "$filename" ]; then
       balooctl6 clear "$filename"
     fi
