@@ -13,16 +13,19 @@ declare -a file_types=(
 
 contains_newline_chars=0
 for file_type in "${file_types[@]}"; do
-  baloosearch6 "type:$file_type" | head -n -1 | while read -r filename; do
-    if [[ -z "$filename" && contains_newline_chars -eq 0 ]]; then
+  baloosearch6 "type:$file_type" | head -n -1 | while read -r entry; do
+    if [[ -z "$entry" && contains_newline_chars -eq 0 ]]; then
       continue
     fi
-    if [[ ! -e "$filename" ]]; then
+    if [[ "$entry" == ${HOME}* ]]; then
+      contains_newline_chars=0
+    fi
+    if [[ ! -e "$entry" ]]; then
       if [ $contains_newline_chars -eq 1 ]; then
         filename_being_deleted+=$'\n'
-        filename_being_deleted+="$filename"
+        filename_being_deleted+="$entry"
       else
-        filename_being_deleted="$filename"
+        filename_being_deleted="$entry"
       fi
       attempt=$(balooctl6 clear "$filename_being_deleted")
       echo "$attempt"
